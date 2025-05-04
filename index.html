@@ -2,20 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FASTA Viewer</title>
+  <title>FASTA 結構顯示</title>
+  <script src="https://unpkg.com/ngl@latest/dist/ngl.js"></script>
 </head>
 <body>
-  <h2>FASTA 檔案上傳與顯示</h2>
-  <input type="file" accept=".fasta,.fa" onchange="loadFile(event)">
-  <pre id="output" style="white-space: pre-wrap; background: #f5f5f5; padding: 1em; border: 1px solid #ccc;"></pre>
+  <h2>AlphaFold 結構顯示器</h2>
+  <label>輸入 UniProt ID：</label>
+  <input type="text" id="uniprot" value="P69905">
+  <button onclick="loadStructure()">顯示結構</button>
+
+  <div id="viewport" style="width: 800px; height: 600px;"></div>
 
   <script>
-    function loadFile(event) {
-      const reader = new FileReader();
-      reader.onload = function () {
-        document.getElementById('output').textContent = reader.result;
-      };
-      reader.readAsText(event.target.files[0]);
+    function loadStructure() {
+      const id = document.getElementById("uniprot").value.trim();
+      const stage = new NGL.Stage("viewport");
+      stage.loadFile(`https://alphafold.ebi.ac.uk/files/AF-${id}-F1-model_v4.pdb`, { defaultRepresentation: true });
     }
   </script>
 </body>
