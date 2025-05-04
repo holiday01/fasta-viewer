@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FASTA Viewer</title>
+</head>
+<body>
+  <h2>FASTA 檔案上傳與顯示</h2>
+  <input type="file" accept=".fasta,.fa" onchange="loadFile(event)">
+  <pre id="output" style="white-space: pre-wrap; background: #f5f5f5; padding: 1em; border: 1px solid #ccc;"></pre>
+
+  <script>
+    function loadFile(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        document.getElementById('output').textContent = reader.result;
+      };
+      reader.readAsText(event.target.files[0]);
+    }
+  </script>
+</body>
+</html>
